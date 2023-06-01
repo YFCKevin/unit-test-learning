@@ -3,6 +3,8 @@ package com.yfckevin.unittestlearning.student;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -38,15 +40,20 @@ public class StudentRepositoryTest {
     }
 
     @Order(2)
-    @Test
-    void itShouldCheckIfStudentEmailDoesNotExists() {
+    @ParameterizedTest
+    @CsvSource({
+            "kevin@gmail.com,false",
+            "yyy@gmail.com,false",
+            "xxx@gmail.com,false"
+    })
+    void itShouldCheckIfStudentEmailDoesNotExists(String email, Boolean excepted) {
         // given
-        String email = "kevin@gmail.com";
+//        String email = "kevin@gmail.com";
 
         // when
-        boolean excepted = underTest.selectExistsEmail(email);
+        boolean doesExisted = underTest.selectExistsEmail(email);
 
         // then
-        assertThat(excepted).isFalse();
+        assertThat(doesExisted).isEqualTo(excepted);
     }
 }
