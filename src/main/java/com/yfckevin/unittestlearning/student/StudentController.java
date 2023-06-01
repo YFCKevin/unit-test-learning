@@ -3,7 +3,7 @@ package com.yfckevin.unittestlearning.student;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
